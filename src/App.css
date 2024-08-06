@@ -1,0 +1,35 @@
+h1 {
+  display: block;
+  text-align: center;
+}
+.wrapper {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  padding: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;  
+}
+.card {
+  width: 30%;
+  text-align: center;
+  margin: 2% 1%;
+  padding: 10px;
+  background-color: white;
+}
+
+@media only screen and (max-width: 800px) {
+  .card {
+    width: 46%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .wrapper {
+    justify-content: center;  
+  }
+  .card {
+    width: 80%;
+  }
+}
