@@ -1,3 +1,7 @@
+# Tests with the Pokemon API
+
+Uses Vite, Bootstrap, AXIOS, built for an interview but will keep it and maybe make it better some day...
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
