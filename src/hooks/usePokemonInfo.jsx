@@ -1,4 +1,4 @@
-import axios, { CanceledError }  from "axios";
+import axiosInstance, { CanceledError } from '../services/api-service'
 import { useEffect, useState } from "react";
 
 const usePokemonInfo = (name) => {
@@ -7,16 +7,12 @@ const usePokemonInfo = (name) => {
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
-  const axiosInstance = axios.create({
-    baseURL: 'https://pokeapi.co/api/v2/pokemon'
-  })  
-
   useEffect(() => {
-    setIsLoading(true);
 
+    setIsLoading(true);
     const controller = new AbortController();
 
-    axiosInstance.get(name, {signal: controller.signal})
+    axiosInstance.get("pokemon/" + name, {signal: controller.signal})
       .then(res => {
         setTimeout(() => { 
           setData(res.data)
@@ -30,11 +26,9 @@ const usePokemonInfo = (name) => {
         setIsLoading(false)               
       })
 
-      return () => {
-        controller.abort()
-      }
+      return () => controller.abort()
 
-  }, [])
+  }, [] )
 
   return {data, error, isLoading}
 }

@@ -1,11 +1,7 @@
-import axios, { CanceledError } from 'axios'
+import axiosInstance, { CanceledError } from '../services/api-service'
 import { useEffect, useState } from 'react'
 
 const usePokemonList = () => {
-
-  const axiosInstance = axios.create({
-    baseURL: "https://pokeapi.co/api/v2/"
-  })
 
   const [data, setData] = useState([])
   const [error, setError] = useState(null)
@@ -14,6 +10,7 @@ const usePokemonList = () => {
   const [pages, setPages] = useState(0)
 
   useEffect(() => {
+
     setIsLoading(true);
     const controller = new AbortController()
   
@@ -32,11 +29,9 @@ const usePokemonList = () => {
         setIsLoading(false)      
       }) 
 
-      return () => {
-        controller.abort()
-      }
+      return () => controller.abort()
 
-  },[params])
+  }, [params] )
 
   const fetchNextPage = () => {
     setParams(prev => ({limit: prev.limit, offset: prev.offset + prev.limit}))
