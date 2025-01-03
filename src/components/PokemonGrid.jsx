@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import PokemonInfo from './PokemonInfo';
 import usePokemonList from '../hooks/usePokemonList';
-import { Grid, Skeleton, Button, Flex, Spinner, Text } from "@radix-ui/themes";
+import { Badge, Grid, Skeleton, Button, Flex, Spinner, Text } from "@radix-ui/themes";
 
 const PokemonGrid = () => {
 
@@ -24,13 +24,15 @@ const PokemonGrid = () => {
   
   return (
     <>     
-      <Grid columns={{ initial: '1', sm: '2', md: '3', lg: '4' }} gap="6"  width="auto">       
+      <Grid columns={{ initial: '2', sm: '2', md: '3', lg: '4' }} gap={{ initial: '4', sm: '6' }}  width="auto">       
         {pages < 1 && isLoading && 
           skeletons.map(item => <Skeleton key={item} width="100%" height="400px" />)}
         {data.length > 0 && data.map((pokemon, idx) => <PokemonInfo key={idx} pokemon={pokemon}  handleCapture={handleCapture} isCaptured={capturedList.includes(pokemon.name)} />)}					    
       </Grid>
       
-      <Text m='5' as='p' align="center" size='1'>Stats: Loaded {data.length} pokemons in {pages} pages, captured <strong>{capturedList.length}</strong> pokemons.</Text>
+      <Text m='5' as='p' align="center" size='1'>
+        <strong>Your stats:</strong> Loaded {data.length} pokemons in {pages} pages, captured <Badge color="amber" variant="solid" radius="full">{capturedList.length}</Badge> pokemons.
+      </Text>
       
       <Flex p='5' align='center' justify='center'>
         <Button disabled={isLoading} size='3' onClick={fetchNextPage}>

@@ -18,11 +18,11 @@ const PokemonInfo = ({ pokemon, handleCapture, isCaptured }) => {
   
   return ( 
     <>      
-    <Tooltip content={isCaptured ? "CAPTURED" : "Click to capture!"}>
+    <Tooltip content={isCaptured ? pokemon.name.toUpperCase() + " CAPTURED" : "Click to capture!"}>
       <Card 
-        onClick={() => !isCaptured && handleCapture(pokemon.name)} 
+        onPointerUp={() => !isCaptured && handleCapture(pokemon.name)} 
         className={`${styles.pokemonCard} card-${pokemon.name}`} 
-        size="4" 
+        size={{ initial: '2', sm: '4'}} 
         height="100%">
         <Inset clip="padding-box" side="top" pb="current">
           {isLoading 
@@ -47,8 +47,8 @@ const PokemonInfo = ({ pokemon, handleCapture, isCaptured }) => {
             )
           }
         </Inset>
-        <Heading as='h3' style={{marginBottom: "20px"}}>{pokemon.name.toUpperCase()}</Heading>
-        <DataList.Root>
+        <Heading as='h3' size={{ initial: '2', md: '4'}}  style={{marginBottom: "20px"}}>{pokemon.name.toUpperCase()}</Heading>
+        <DataList.Root orientation={{ initial: "vertical", sm: "horizontal" }}>
           <DataList.Item>
             <DataList.Label minWidth="80px">Height:</DataList.Label>
             <DataList.Value>
