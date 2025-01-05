@@ -1,13 +1,11 @@
 import React from 'react'
-import usePokemonInfo from '../hooks/usePokemonInfo'
+import usePokemonInfo from '../../hooks/usePokemonInfo'
 import { Tooltip, Card, Inset, Badge, DataList, Heading, Flex, Spinner, Text, Box } from "@radix-ui/themes";
-import styles from './pokemonInfo.module.scss';
+import styles from './pokemonCard.module.scss';
 
-const PokemonInfo = ({ pokemon, handleCapture, isCaptured }) => {
+const PokemonCard = ({ pokemon, handleCapture, isCaptured }) => {
 
   const {data:pokemonInfoData, error, isLoading} = usePokemonInfo(pokemon.name);
-
-  const cardClass = document.querySelector(".card-" + pokemon.name);
 
   if (error) 
 		return <p>Sorry, there was a problem on usePokemonInfo, check the console - ERR: {error.message}</p>
@@ -22,43 +20,45 @@ const PokemonInfo = ({ pokemon, handleCapture, isCaptured }) => {
         aria-label={`Click to catch ${pokemon.name}`}        
         tabIndex={0}
         className={`${styles.pokemonCard} ${isCaptured ? styles.captured : ""}`} 
-        size={{ initial: '2', sm: '4'}} 
+        size={{ initial: '2', lg: '4'}} 
         height="100%">
-        <Inset clip="padding-box" side="top" pb="current">
+        <Inset clip="border-box" side="top" pb="current">
           {isLoading 
             ? (
-            <Flex align='center' justify='center' width='100%' height='180px'>
-              <Spinner />
+            <Flex align='center' justify='center' width='100%' height='150px'>
+              <Spinner size='3' />
             </Flex>
             ) : ( 
-              <div className={styles.pokemonImgWrapper}>
-                <img
-                  src={pokemonInfoData.sprites?.back_default} 
-                  alt={pokemon.name}
-                  className={styles.mainImage}
-                />
-                <img
-                  src={pokemonInfoData.sprites?.front_default} 
-                  alt={pokemon.name}
-                  className={styles.hoverImage}
-                />
-              </div>
+              pokemonInfoData?.sprites?.back_default && (
+                <div className={styles.pokemonImgWrapper}>
+                  <img
+                    src={pokemonInfoData.sprites?.back_default} 
+                    alt={pokemon.name}
+                    className={styles.mainImage}
+                  />
+                  <img                  
+                    src={pokemonInfoData.sprites?.other.showdown.front_default} 
+                    alt={pokemon.name}
+                    className={styles.hoverImage}
+                  />
+                </div>
+              )
             )
           }
         </Inset>
-        <Heading as='h3' size={{ initial: '2', md: '4'}} mb='5'>{pokemon.name.toUpperCase()}</Heading>
-        <PokemonInfoDataList pokemonInfoData={pokemonInfoData}/>
+        <Heading as='h3' size={{ initial: '2', lg: '4'}} mb={{ initial: '2', lg: '5'}}>{pokemon.name.toUpperCase()}</Heading>
+        <PokemonCardDataList pokemonInfoData={pokemonInfoData}/>
       </Card>   
     </Tooltip>       
     </>
   )
 }
 
-export default PokemonInfo
+export default PokemonCard
 
-const PokemonInfoDataList = ({pokemonInfoData}) => {
+const PokemonCardDataList = ({pokemonInfoData}) => {
   return (
-    <DataList.Root orientation={{ initial: "vertical", sm: "horizontal" }}>
+    <DataList.Root orientation={{ initial: "vertical", lg: "horizontal" }}>
 
       <DataList.Item>
         <DataList.Label minWidth="80px">Height:</DataList.Label>

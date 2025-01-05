@@ -1,6 +1,6 @@
 .pokemonCard {
   cursor: url(/public/poke_ball.png) 50 50, auto;
-  border: 1px solid #323035;
+  border: 0px;
   transition: box-shadow 0.3s ease-out;
   transition: filter 0.7s ease-out;
   transition: transform 0.7s ease-out;
@@ -11,7 +11,7 @@
     -1px -2px 0px -5px #FFF212; 
   &:hover, 
   &:focus {
-    border: 1px solid rgb(255, 128, 0);
+    border: 0px;
     box-shadow: 
        2px  2px 30px -2px #FF1F1F, 
        1px -3px 10px -2px #FFE264, 
@@ -25,14 +25,14 @@
       }      
       .hoverImage {
         opacity: 1;
-        transform: scale(1.2);
+        transform: scale(1);
       }          
-    }            
+    }
   }
   .pokemonImgWrapper {
     position: relative;
     width: 100%;
-    height: 180px;
+    height: 150px;
     overflow: hidden;
     background: radial-gradient(circle, #5a575f 0%, #151517 100%);
     .mainImage {
@@ -41,7 +41,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       transition: all 0.5s ease-in-out;
       opacity: 1;
       transform: scale(1);
@@ -52,7 +52,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       opacity: 0;
       transition: all 0.3s ease-in-out;
       transform: scale(0);

@@ -17,7 +17,7 @@ const usePokemonInfo = (name) => {
         setTimeout(() => { 
           setData(res.data)
           setIsLoading(false)
-        }, 500) // Creates suspense, accomplishes nothing :)
+        }, 500) // Creates suspense, accomplishes nothing, but can you see the spinners? :P
       })
       .catch(err => {
         if (err instanceof CanceledError) return        
